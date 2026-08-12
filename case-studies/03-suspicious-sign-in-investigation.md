@@ -53,4 +53,16 @@ If this activity occurred in a production environment, appropriate next steps wo
 
 ## Evidence
 
-Sanitized screenshots and an event timeline will be added after review.
+### Failed Sign-In Pattern
+
+![Microsoft Entra sign-in logs showing repeated failed authentication events](../evidence/suspicious-sign-in-events.png)
+
+The sign-in log shows six failed authentication attempts within approximately five minutes. Four attempts originated from a Japanese VPN endpoint, while two originated from a Taiwanese VPN endpoint. All six returned error code `50126`, indicating invalid credentials.
+
+The surrounding successful events provide a baseline showing the account’s normal United States activity. This contrast contributed to the suspicious assessment but was evaluated alongside timing, application, browser, and network information.
+
+### Device Context
+
+![Microsoft Entra sign-in event showing browser and device information](../evidence/sign-in-device-context.png)
+
+The selected event recorded Chrome on macOS. Entra ID also reported that the device was unmanaged and noncompliant. This information provides additional investigative context, although device-management status alone does not establish that an authentication attempt was malicious.
