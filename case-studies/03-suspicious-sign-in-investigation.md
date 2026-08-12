@@ -29,6 +29,27 @@ The frequency of failures, unfamiliar network information, geographic inconsiste
 
 Geolocation alone is not reliable proof of compromise. VPN use, mobile networks, ISP routing, and IP geolocation inaccuracies can produce misleading locations. A real investigation should correlate sign-in activity with device identity, authentication details, user history, threat intelligence, and confirmation from the affected user.
 
+## Event Timeline
+
+| Time       | Application    | Result  | Error   | Reported location        |
+| ---------- | -------------- | ------- | ------- | ------------------------ |
+| 3:00:28 PM | Microsoft Docs | Failure | `50126` | Songshan, Taipei, Taiwan |
+| 3:00:49 PM | Microsoft Docs | Failure | `50126` | Songshan, Taipei, Taiwan |
+| 3:04:11 PM | Azure Portal   | Failure | `50126` | Tatsuno, Nagano, Japan   |
+| 3:04:21 PM | Azure Portal   | Failure | `50126` | Tatsuno, Nagano, Japan   |
+| 3:04:26 PM | Azure Portal   | Failure | `50126` | Tatsuno, Nagano, Japan   |
+| 3:04:30 PM | Azure Portal   | Failure | `50126` | Tatsuno, Nagano, Japan   |
+
+The attempts occurred in two clusters. The first contained two failures within 21 seconds, while the second contained four failures within 19 seconds.
+
+## Investigation Outcome
+
+**Disposition:** Simulated true positive — unsuccessful brute-force activity.
+
+All six intentionally generated events failed with error `50126`. No successful authentication from the simulated foreign locations was identified in the reviewed evidence. The activity therefore demonstrated suspicious password-guessing behavior, but the available logs did not indicate that the account was compromised.
+
+In a production investigation, additional logs and a broader time range would be reviewed before closing the incident.
+
 ## Recommended Response
 
 If this activity occurred in a production environment, appropriate next steps would include:
